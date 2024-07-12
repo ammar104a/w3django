@@ -1,0 +1,305 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{% static 'myglobal.css' %}">
+<body>
+
+
+
+<table border='1'>
+  <tr> <!--tabe row-->
+    <th> ID </th> <!--Table Header-->
+    <th> Firstname </th>
+    <th> Lastname </th>
+  </tr>
+  {% for x in mymembers %}
+    <tr>
+      <td> {{ x.id }} </td>
+      <td> {{ x.firstname }} </td>
+      <td> {{ x.lastname }} </td>
+    <tr>
+  {% endfor %}
+</table>
+
+{% include "mymenu.html" with me="TOBIAS" Sponsor="W3SCHOOLS" %}
+<h1> LOOPS </h1> 
+{% for x in fruits %}
+  <h1>{{ x }}</h1>
+{% endfor %}
+
+{% comment %}
+  <h1> Hello </h1>
+{% endcomment %}
+
+{% comment "this was the origional welcome message" %}
+    welsome ladies and Greetn
+{% endcomment %}
+
+<!--For Loop-->
+{% for x in fruits %}
+  <h1> {{ x }} </h1>
+{% endfor %}
+
+<!--For loops to print a dictionary-->
+{% for x in cars %}
+  <h1>{{ x.brand }}</h1>
+  <p>{{ x.model }}</p>
+  <p>{{ x.year }}</p>
+{% endfor %}
+
+<!--for loops to print data from models-->
+{% for x in members %}
+  <h1> {{ x.id }} </h1>
+  <p>
+    {{ x.firstname }}
+    {{ x.lastname }}
+    {{ x.joined_date }}
+  </p>
+{% endfor %}
+<!--The reverse keyyword is used when you w
+ant 
+to do the loop in reversed order-->
+{% for x in memebers reversed %}
+<h1> {{ x.id }} </h1>
+<p>
+  {{ x.firstname }}
+  {{ x.lastname}}
+</p>
+{% endfor %}
+
+<!--the empty keyword is sed if you want to do something pecial is the object is empty -->
+<ul>
+  {% for x in emptytestobject %}
+    <li> {{ x.firstname }} </li>
+  {% empty %}
+    <li> This object is emmpty </li>
+  {% endfor %}
+</ul>
+<!-- works even if the object does not exist-->
+<ul>
+  {% for x in myobject %}
+    <li>{{ x.firstname }}</li>
+  {% empty %}
+    <li>No members</li>
+  {% endfor %}
+</ul> 
+<br>
+<h1> LOOP VARIABLES </h1>
+<br>
+{# Django has some variables that are available for you inside a loop:
+forloop.counter
+forloop.counter0
+forloop.first
+forloop.last
+forloop.parentloop
+forloop.revcounter
+forloop.revcounter0 #}
+
+<!--forloop.counter will display how many times the forloop iterated -->
+<ul>
+  {% for x in fruits %}
+    <li> {{ forloop.counter }} </li>
+  {% endfor %}
+</ul>
+
+<!--forloop.counter0 will display the number of 
+the times the for loop iterated but the iterations will start from 0 instead of 1
+-->
+<ul>
+  {% for x in fruits %}
+    <li> {{ forloop.counter0 }} </li>
+  {% endfor %}
+</ul>
+
+<!-- forloop.first allows you to test if the loop is on its first iteration-->
+<ul>
+  <!-- Start a for loop to iterate over each item in the 'fruits' list -->
+  {% for x in fruits %}
+    <!-- Create a list item (li) element -->
+    <li
+      {#Check if the current iteration is the first iteration in the loop #}
+      {% if forloop.first %}
+        {# If it is the first iteration, apply a style to change the background color to light blue #}
+        style='background-color:lightblue;'
+      {% endif %}
+    >
+    <!-- Display the current item (fruit) from the 'fruits' list inside the list item (li) element -->
+    {{ x }}</li>
+  <!-- End the for loop -->
+  {% endfor %}
+</ul>
+
+<!--forlooplast will let you see if the loop is in its last iteration-->
+<ul>
+  {% for x in fruits %}
+    <li
+      {% if forloop.last %}
+        style='background-color:red;'
+      {% endif %}
+    >{{ x }}</li>
+  {% endfor %}
+</ul>
+
+<!--forloop.revcounter its a reverse counter lol not a revision counter 
+The current iteration if you start at the end and count backwards, ending up at 1.-->
+<ul>
+  {% for x in fruits %}
+    <li>{{ forloop.revcounter }}</li>
+  {% endfor %}
+</ul> 
+
+<!--forloop.revcounte0 same thing but will go to 0 indead of 1-->
+<ul>
+  {% for x in fruits %}
+    <li>{{ forloop.revcounter0 }}</li>
+  {% endfor %}
+</ul>
+
+<!--The firstname varable is defined in views
+But it can also be defines in this htm file for eg.
+
+{% with firstname="Tobias" %}
+<h1>Hello {{ firstname }}, how are you?</h1>
+{% endwith %} THIS WILL DISPLAY TOBIAS
+
+<h1>Hello {{ firstname }}, how are you?</h1> -->
+
+
+<h1> MEMBERS </h1> <br> 
+
+
+<ul>
+  {% for x in mymembers %}<!--for each member in my members-->
+    <li>{{ x.firstname }} {{x.lastname}} <br> Joined Date {{x.joined_date}}
+    </li>
+  {% endfor %}<!--prints each member in the database-->
+</ul>
+<h1> DEFAULT VALUES  </h1> <br> 
+<h1> The Random int is {{greeting}}</h1>
+<h1> The day set day is {{day}}</h1><br>
+
+<h1> IF......ELSE </h1> <br> 
+
+
+{% if greeting == 1 %}
+  <h1>Greeting is 1</h1>
+{% else %}
+  <h1>Greeting is not 1</h1>
+{% endif %}
+
+<!--If statements django-->
+{% if greeting == 1 %}
+  <h1> Greeting is 1 </h1>
+{% endif %}
+
+<!--Elif statemensts-->
+{% if greeting == 1 %}
+  <h1>Greeting is 1</h1>
+{% elif greeting == 2 %}
+  <h1>Greeting is 2</h1>
+{% else %}
+  <h1>Greeting is neither 1 nor 2</h1>
+{% endif %}
+
+<!--Operators    If greeting = True -->
+{% if greeting %}
+  <h1>Greeting is True</h1>
+{% endif %}
+
+<!-- Is equal to == operator-->
+{% if greeting == 2 %}
+  <h1> Greeting is equal to 2 </h1>
+{% endif %}
+
+<!--Is not equal to !=-->
+{% if greeting != 1 %}
+  <h1>Greeting is not equal to 1</h1>
+{% endif %}
+
+<!--Is less than <-->
+{% if greeting < 3 %}
+  <h1>Greeting is less than 3</h1>
+{% endif %}
+
+<!--Is less than or equal to-->
+{% if greeting <= 3 %}
+  <h1> Greeting is less than or equal to 3 </h1>
+{% endif %}
+
+<!--Is greater than -->
+{% if greeeting > 1 %}
+  <h1> Greetng is less than 1 </h1>
+{% endif %}
+
+<!--IS greater than or equal to >= -->
+{% if greeting >= 1 %}
+  <h1> Greeting is greater than or equal to 1</h1>
+{% endif %}
+
+<!-- and -->
+{% if greeting == 1 and day == 'Friday' %}
+    <h1> Greeting Equals 1 and the day is Friday </h>
+{% endif %}
+
+<!-- or -->
+{% if greeting == 1 or greeting == 5 %}
+    <h1>Greeting is either 1 or 5</h1>
+{% endif %}
+
+<!--Combining and & or-->
+<!-- The following if statement will be interpreted like this:-->
+{# if (greeting == 1 an day == "Friday") or greeting == 5  #}
+{% if greeting == 1 and day == "Friday" or greeting == 5 %}
+      <h1> Greeting is equal to 1 and the day is Friday OR greeting is equal to 5</h1>
+{% endif %}
+
+<!-- in to check if a certain item is present in an object-->
+{% if 'Banana' in fruits %}<!-- Will return true if bannana is in fruits-->
+      <h1> Bannana is a Fruit </h1>
+{% else %}
+      <h1> Bannana is not a fruit </h1>
+{% endif %}
+
+<!-- not in   to check if a certain item is not present in an object-->
+{% if 'Banana' not in fruits %}
+    <h1> Banana is not a fruit </h1>
+{% else %}
+    <h1> Banana is a fruit </h1>
+{% endif %}
+
+<!-- is check is two objects are the same 
+ This is different from the == operator as == checks if the values are the same
+ but the is operator checks if the  identity of two objects are the same-->
+{% if x is y %}
+      <h1> X and Y are the same objects using the is operator</h1>
+{% else %}
+      <h1> X and Y are not the same objects using the is operator</h1>
+{% endif %}
+<!--if two objects point to the same memory adress they are the same using the is operator-->
+<!-- Using the == operator to check if x and y are the same-->
+{% if x == y %}
+      <h1> X and Y are the same objects using the "=="operator</h1>
+{% else %}
+      <h1> X and Y are not the same character using the  operator </h1>
+{% endif %}
+
+{% with var1=x var2=x %}
+      {% if var1 is var2 %}
+        <h1> Var1 and Var2 point to the same object/memory adress </h1>
+      {% else %}
+        <h1> Var1 an Var2 do not point to the same obect </h1>
+      {% endif %}
+{% endwith %}
+
+<!-- isnot     to check if twobjects are not the same -->
+{% if x is not y %}
+      <h1> x and y do not point to the same object/memory adress </h1>
+{% else %}
+      <h1> x and y do not point to the same object/memory adress </h1>
+{% endif %}
+
+
+</body>
+
+{% include 'footer.html' %}
+</html>
